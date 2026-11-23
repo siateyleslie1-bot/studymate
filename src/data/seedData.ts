@@ -1,0 +1,607 @@
+import {
+  AcademicLevel,
+  ExamGoal,
+  FlashcardDeck,
+  PaymentPlan,
+  QuickNote,
+  StudyGroup,
+  StudySessionLog,
+} from '../types/studymate';
+
+export const MOMO_MERCHANT_NUMBER = '0240287017';
+export const MOMO_MERCHANT_NAME = 'StudyMate Ghana';
+
+export const HERO_COLLAB_IMAGE = '/src/assets/images/hero_studymate_collab_1795467656222.jpg';
+export const FLASHCARD_STUDIO_IMAGE = '/src/assets/images/banner_flashcard_studio_1795467656704.jpg';
+export const CAMPUS_FOCUS_IMAGE = '/src/assets/images/banner_campus_focus_1795467656964.jpg';
+
+export const SUBJECTS_BY_LEVEL: Record<AcademicLevel, string[]> = {
+  JHS: [
+    'Core Mathematics',
+    'Integrated Science',
+    'English Language',
+    'Social Studies',
+    'Computing / ICT',
+    'Religious & Moral Education',
+  ],
+  SHS: [
+    'Elective Mathematics',
+    'Core Mathematics',
+    'Biology',
+    'Chemistry',
+    'Physics',
+    'Economics',
+    'Literature-in-English',
+  ],
+  University: [
+    'Data Structures & Algorithms',
+    'Calculus & Linear Algebra',
+    'Constitutional Law',
+    'Principles of Accounting',
+    'Human Anatomy',
+    'Research Methods',
+  ],
+};
+
+export const PAYMENT_PLANS: PaymentPlan[] = [
+  {
+    id: 'hourly',
+    name: 'Hourly Pass',
+    audienceLabel: 'For urgent revision & cram sessions',
+    priceGhs: 10,
+    cadenceLabel: 'GH₵ 10 / hour',
+    summary:
+      'Pay only for the active study hours you need during exam week, mock drills, or live group review.',
+    highlights: [
+      'Full flashcard studio & spaced repetition access',
+      'Live study group rooms & shared deck imports',
+      'Auto-timed hourly session pass with roll-over option',
+      'Instant practice quiz generation from any deck',
+    ],
+  },
+  {
+    id: 'monthly',
+    name: 'Monthly Scholar',
+    audienceLabel: 'For steady JHS, SHS & semester progress',
+    priceGhs: 100,
+    cadenceLabel: 'GH₵ 100 / month',
+    summary:
+      'Complete 30-day access to unlimited study groups, shared flashcard decks, Pomodoro logs, and analytics.',
+    highlights: [
+      'Unlimited flashcard decks & group deck sharing',
+      'Create and host up to 10 active study groups',
+      'Personalized weekly progress charts & streak tracking',
+      'Exam countdown planner & formula vault',
+    ],
+    recommended: true,
+  },
+  {
+    id: 'annual',
+    name: 'Annual Mastery',
+    audienceLabel: 'For full-year BECE, WASSCE & degree mastery',
+    priceGhs: 1000,
+    cadenceLabel: 'GH₵ 1,000 / year',
+    summary:
+      'Lock in 12 months of uninterrupted learning and save GH₵ 200 compared to monthly billing.',
+    highlights: [
+      'Everything in Monthly Scholar for 365 days',
+      'Unlimited study group hosting & co-admin invites',
+      'Downloadable CSV progress & mastery transcripts',
+      'Priority access to curated BECE, WASSCE & tertiary decks',
+    ],
+  },
+];
+
+export const INITIAL_STUDY_GROUPS: StudyGroup[] = [
+  {
+    id: 'grp-jhs-science',
+    name: 'BECE Integrated Science Circle',
+    level: 'JHS',
+    subject: 'Integrated Science',
+    description:
+      'Daily 45-minute drills covering photosynthesis, mixtures, simple machines, and past BECE Section B theory questions.',
+    schedule: 'Mon, Wed, Fri · 4:30 PM',
+    meetingMode: 'Audio Room + Shared Board',
+    membersCount: 18,
+    maxMembers: 25,
+    joined: true,
+    inviteCode: 'JHS-SCI-24',
+    hostName: 'Abena Mensah',
+    sharedDeckIds: ['deck-jhs-sci-1'],
+    posts: [
+      {
+        id: 'post-1',
+        author: 'Abena Mensah',
+        role: 'Group Lead',
+        content:
+          'Uploaded our updated flashcard deck on separation of mixtures and energy conversions. Review cards 1–6 before Wednesday’s drill.',
+        createdAt: '2 hours ago',
+        attachedDeckId: 'deck-jhs-sci-1',
+      },
+      {
+        id: 'post-2',
+        author: 'Kwame Boateng',
+        role: 'JHS 3 Student',
+        content:
+          'Remember to distinguish fractional distillation (boiling points) from chromatography (solubility rates) for Section B.',
+        createdAt: 'Yesterday',
+      },
+    ],
+  },
+  {
+    id: 'grp-jhs-maths',
+    name: 'JHS Core Maths Problem Solvers',
+    level: 'JHS',
+    subject: 'Core Mathematics',
+    description:
+      'Step-by-step practice on linear equations, bearings, mensuration, and Venn diagrams for BECE candidates.',
+    schedule: 'Tue, Thu · 5:00 PM',
+    meetingMode: 'Interactive Whiteboard',
+    membersCount: 14,
+    maxMembers: 20,
+    joined: false,
+    inviteCode: 'JHS-MTH-09',
+    hostName: 'Kofi Owusu',
+    sharedDeckIds: ['deck-jhs-mth-1'],
+    posts: [
+      {
+        id: 'post-3',
+        author: 'Kofi Owusu',
+        role: 'Group Lead',
+        content:
+          'Focus this week: calculating area of sectors and perimeter of compound shapes without leaving answers in decimals too early.',
+        createdAt: '5 hours ago',
+        attachedDeckId: 'deck-jhs-mth-1',
+      },
+    ],
+  },
+  {
+    id: 'grp-shs-bio',
+    name: 'WASSCE Biology & Practical Prep',
+    level: 'SHS',
+    subject: 'Biology',
+    description:
+      'Focused on mitosis vs. meiosis, Mendelian genetics, mammalian physiology, and biological drawing labels.',
+    schedule: 'Mon, Thu · 6:00 PM',
+    meetingMode: 'Live Flashcard Duel',
+    membersCount: 22,
+    maxMembers: 30,
+    joined: true,
+    inviteCode: 'SHS-BIO-88',
+    hostName: 'Esi Darko',
+    sharedDeckIds: ['deck-shs-bio-1'],
+    posts: [
+      {
+        id: 'post-4',
+        author: 'Esi Darko',
+        role: 'SHS 3 Science Lead',
+        content:
+          'Shared the Cell Division & Genetics deck. Aim for 85%+ mastery in Quiz Mode before Friday’s mock.',
+        createdAt: '3 hours ago',
+        attachedDeckId: 'deck-shs-bio-1',
+      },
+    ],
+  },
+  {
+    id: 'grp-shs-econ',
+    name: 'SHS Economics & Quantitative Guild',
+    level: 'SHS',
+    subject: 'Economics',
+    description:
+      'Graphing demand & supply shifts, price elasticity formulas, national income accounting, and essay structuring.',
+    schedule: 'Wed, Sat · 10:00 AM',
+    meetingMode: 'Study Room + Notes',
+    membersCount: 16,
+    maxMembers: 25,
+    joined: false,
+    inviteCode: 'SHS-ECN-41',
+    hostName: 'Yaw Frimpong',
+    sharedDeckIds: ['deck-shs-econ-1'],
+    posts: [
+      {
+        id: 'post-5',
+        author: 'Yaw Frimpong',
+        role: 'Group Lead',
+        content:
+          'Check the Elasticity deck for exact midpoint formula flashcards so you do not lose marks on Paper 2 calculations.',
+        createdAt: '1 day ago',
+        attachedDeckId: 'deck-shs-econ-1',
+      },
+    ],
+  },
+  {
+    id: 'grp-uni-dsa',
+    name: 'CS204 Data Structures Seminar',
+    level: 'University',
+    subject: 'Data Structures & Algorithms',
+    description:
+      'Peer walkthroughs of balanced binary trees, graph traversals, dynamic programming recurrences, and Big-O proofs.',
+    schedule: 'Tue, Fri · 7:30 PM',
+    meetingMode: 'Code & Proof Review',
+    membersCount: 27,
+    maxMembers: 35,
+    joined: true,
+    inviteCode: 'UNI-DSA-301',
+    hostName: 'Nana Adjei',
+    sharedDeckIds: ['deck-uni-dsa-1'],
+    posts: [
+      {
+        id: 'post-6',
+        author: 'Nana Adjei',
+        role: 'Level 300 TA',
+        content:
+          'Added AVL rotation cases and Dijkstra vs. Bellman-Ford complexity cards to the shared deck.',
+        createdAt: '4 hours ago',
+        attachedDeckId: 'deck-uni-dsa-1',
+      },
+    ],
+  },
+  {
+    id: 'grp-uni-law',
+    name: 'Constitutional & Public Law Moot',
+    level: 'University',
+    subject: 'Constitutional Law',
+    description:
+      'Case brief sharing on separation of powers, judicial review, and 1992 Constitution fundamental human rights articles.',
+    schedule: 'Sun · 4:00 PM',
+    meetingMode: 'Case Brief Exchange',
+    membersCount: 19,
+    maxMembers: 25,
+    joined: false,
+    inviteCode: 'UNI-LAW-192',
+    hostName: 'Akosua Baffour',
+    sharedDeckIds: ['deck-uni-law-1'],
+    posts: [
+      {
+        id: 'post-7',
+        author: 'Akosua Baffour',
+        role: 'LLB Study Lead',
+        content:
+          'Reviewed Tuffuor v. Attorney-General and NPP v. Attorney-General (31st December Case) in the shared case cards.',
+        createdAt: '2 days ago',
+        attachedDeckId: 'deck-uni-law-1',
+      },
+    ],
+  },
+];
+
+export const INITIAL_DECKS: FlashcardDeck[] = [
+  {
+    id: 'deck-jhs-sci-1',
+    title: 'BECE Integrated Science: Matter & Energy',
+    level: 'JHS',
+    subject: 'Integrated Science',
+    author: 'Abena Mensah',
+    isShared: true,
+    shareCode: 'SM-JHS-SCI01',
+    description: 'Essential BECE definitions, separation techniques, and energy conversion principles.',
+    updatedAt: '2026-11-22',
+    cards: [
+      {
+        id: 'c-jhs-1',
+        front: 'What separation method isolates pure water from a salt-water mixture while recovering the water?',
+        back: 'Simple distillation — water evaporates at 100°C and condenses into a separate receiver, leaving salt behind.',
+        hint: 'Think of evaporation followed by condensation.',
+        mastery: 'mastered',
+      },
+      {
+        id: 'c-jhs-2',
+        front: 'State the energy transformation inside a solar-powered water pump.',
+        back: 'Solar (light) energy → Electrical energy → Mechanical (kinetic) energy.',
+        hint: 'Follow the path from sunlight to panel to motor.',
+        mastery: 'mastered',
+      },
+      {
+        id: 'c-jhs-3',
+        front: 'Why is a copper wire coated with PVC plastic in household wiring?',
+        back: 'Copper is a good electrical conductor, while PVC plastic acts as an electrical insulator to prevent electric shock.',
+        hint: 'Compare conductors and insulators.',
+        mastery: 'learning',
+      },
+      {
+        id: 'c-jhs-4',
+        front: 'Define osmosis in plant root hair cells.',
+        back: 'The movement of water molecules from a region of higher water concentration (soil) to lower water concentration (cell sap) through a selectively permeable membrane.',
+        hint: 'Water movement across a semi-permeable membrane.',
+        mastery: 'new',
+      },
+      {
+        id: 'c-jhs-5',
+        front: 'What is the mechanical advantage (MA) formula for a simple machine?',
+        back: 'Mechanical Advantage (MA) = Load / Effort.',
+        hint: 'Compare output force to input force.',
+        mastery: 'learning',
+      },
+    ],
+  },
+  {
+    id: 'deck-jhs-mth-1',
+    title: 'BECE Core Maths: Algebra & Mensuration',
+    level: 'JHS',
+    subject: 'Core Mathematics',
+    author: 'Kofi Owusu',
+    isShared: true,
+    shareCode: 'SM-JHS-MTH02',
+    description: 'High-frequency BECE geometry formulas, bearings, and linear equations.',
+    updatedAt: '2026-11-21',
+    cards: [
+      {
+        id: 'c-jm-1',
+        front: 'What is the formula for the sum of interior angles of an n-sided polygon?',
+        back: '(n − 2) × 180°, where n is the number of sides.',
+        hint: 'Subtract 2 triangles from n.',
+        mastery: 'mastered',
+      },
+      {
+        id: 'c-jm-2',
+        front: 'If the bearing of B from A is 065°, what is the bearing of A from B?',
+        back: '245° (Add 180° because 065° is less than 180°: 65° + 180° = 245°).',
+        hint: 'Back-bearing rule: ±180°.',
+        mastery: 'learning',
+      },
+      {
+        id: 'c-jm-3',
+        front: 'State the total surface area of a closed cylinder of radius r and height h.',
+        back: '2πr² + 2πrh = 2πr(r + h).',
+        hint: 'Two circular ends plus the curved rectangle.',
+        mastery: 'new',
+      },
+      {
+        id: 'c-jm-4',
+        front: 'Solve for x: 3(2x − 4) = 18.',
+        back: 'x = 5 (Expand: 6x − 12 = 18 → 6x = 30 → x = 5).',
+        hint: 'Divide both sides by 3 first or expand the bracket.',
+        mastery: 'mastered',
+      },
+    ],
+  },
+  {
+    id: 'deck-shs-bio-1',
+    title: 'WASSCE Biology: Cell Division & Genetics',
+    level: 'SHS',
+    subject: 'Biology',
+    author: 'Esi Darko',
+    isShared: true,
+    shareCode: 'SM-SHS-BIO01',
+    description: 'Compare mitotic and meiotic stages, crossing over, and Mendelian ratios.',
+    updatedAt: '2026-11-23',
+    cards: [
+      {
+        id: 'c-sb-1',
+        front: 'During which stage of meiosis does crossing over (chiasma formation) occur?',
+        back: 'Prophase I (specifically during pachytene when homologous chromosomes form bivalents).',
+        hint: 'First stage of the reduction division.',
+        mastery: 'mastered',
+      },
+      {
+        id: 'c-sb-2',
+        front: 'State the key difference between Anaphase of Mitosis and Anaphase I of Meiosis.',
+        back: 'In Mitosis Anaphase, sister chromatids separate; in Meiosis Anaphase I, homologous chromosomes separate while sister chromatids remain joined.',
+        hint: 'Centromeres split in one, not the other.',
+        mastery: 'learning',
+      },
+      {
+        id: 'c-sb-3',
+        front: 'What phenotypic ratio results from a monohybrid cross between two heterozygous tall plants (Tt × Tt)?',
+        back: '3 Tall : 1 Short (genotypic ratio 1 TT : 2 Tt : 1 tt).',
+        hint: 'Mendel’s classic F2 ratio.',
+        mastery: 'mastered',
+      },
+      {
+        id: 'c-sb-4',
+        front: 'Name the organelle responsible for synthesizing spindle fibres in animal cells.',
+        back: 'Centrioles (located within the centrosome).',
+        hint: 'Cylindrical microtubule structures near the nucleus.',
+        mastery: 'new',
+      },
+    ],
+  },
+  {
+    id: 'deck-shs-econ-1',
+    title: 'WASSCE Economics: Elasticity & Market Equilibrium',
+    level: 'SHS',
+    subject: 'Economics',
+    author: 'Yaw Frimpong',
+    isShared: true,
+    shareCode: 'SM-SHS-ECN02',
+    description: 'Master price elasticity of demand, cross elasticity, and determinants of supply.',
+    updatedAt: '2026-11-20',
+    cards: [
+      {
+        id: 'c-se-1',
+        front: 'How is Price Elasticity of Demand (PED) calculated?',
+        back: 'PED = (% Change in Quantity Demanded) ÷ (% Change in Price).',
+        hint: 'Quantity response sits in the numerator.',
+        mastery: 'mastered',
+      },
+      {
+        id: 'c-se-2',
+        front: 'If two goods have a negative Cross Elasticity of Demand (XED < 0), what are they?',
+        back: 'Complementary goods (an increase in the price of one lowers demand for the other, e.g., fuel and cars).',
+        hint: 'Price of Good A rises → Demand for Good B falls.',
+        mastery: 'learning',
+      },
+      {
+        id: 'c-se-3',
+        front: 'What happens to total revenue when price increases for a good with inelastic demand (|PED| < 1)?',
+        back: 'Total revenue increases, because quantity demanded falls by a smaller percentage than price rises.',
+        hint: 'Consumers keep buying despite the higher price.',
+        mastery: 'new',
+      },
+      {
+        id: 'c-se-4',
+        front: 'Distinguish between a movement along a demand curve and a shift of the demand curve.',
+        back: 'Movement along is caused only by a change in the good’s own price; a shift is caused by non-price factors like income, tastes, or prices of related goods.',
+        hint: 'Own price vs. ceteris paribus factors.',
+        mastery: 'learning',
+      },
+    ],
+  },
+  {
+    id: 'deck-uni-dsa-1',
+    title: 'CS204: Trees, Graphs & Asymptotic Bounds',
+    level: 'University',
+    subject: 'Data Structures & Algorithms',
+    author: 'Nana Adjei',
+    isShared: true,
+    shareCode: 'SM-UNI-DSA01',
+    description: 'Midterm and finals deck covering AVL balancing, BFS/DFS, Dijkstra, and Big-O bounds.',
+    updatedAt: '2026-11-23',
+    cards: [
+      {
+        id: 'c-ud-1',
+        front: 'What is the worst-case time complexity of search, insert, and delete in an AVL tree with n nodes?',
+        back: 'O(log n) — because the balance factor of every node is strictly kept within {−1, 0, +1}.',
+        hint: 'Height remains strictly logarithmic.',
+        mastery: 'mastered',
+      },
+      {
+        id: 'c-ud-2',
+        front: 'Why does Dijkstra’s algorithm fail on graphs with negative edge weights?',
+        back: 'Dijkstra assumes that once a vertex is popped from the priority queue, its shortest path is finalized; a negative edge later can produce a shorter path.',
+        hint: 'Greedy finality assumption breaks.',
+        mastery: 'learning',
+      },
+      {
+        id: 'c-ud-3',
+        front: 'What is the time complexity of Bellman-Ford on a graph with V vertices and E edges?',
+        back: 'O(V · E), because it relaxes all E edges across (V − 1) iterations.',
+        hint: 'Every edge relaxed V − 1 times.',
+        mastery: 'learning',
+      },
+      {
+        id: 'c-ud-4',
+        front: 'Which tree traversal visits a Binary Search Tree’s nodes in non-decreasing sorted order?',
+        back: 'In-order traversal (Left subtree → Root → Right subtree).',
+        hint: 'Visit left before root before right.',
+        mastery: 'mastered',
+      },
+      {
+        id: 'c-ud-5',
+        front: 'State the Master Theorem case when T(n) = 2T(n/2) + O(n).',
+        back: 'Case 2: f(n) = Θ(n^(log_b a)) = Θ(n), giving T(n) = Θ(n log n) (e.g., Merge Sort).',
+        hint: 'Work per level is equal at every depth.',
+        mastery: 'new',
+      },
+    ],
+  },
+  {
+    id: 'deck-uni-law-1',
+    title: 'Constitutional Law: Judicial Review & Cases',
+    level: 'University',
+    subject: 'Constitutional Law',
+    author: 'Akosua Baffour',
+    isShared: true,
+    shareCode: 'SM-UNI-LAW02',
+    description: 'Landmark Supreme Court of Ghana constitutional cases and Article 2 enforcement.',
+    updatedAt: '2026-11-19',
+    cards: [
+      {
+        id: 'c-ul-1',
+        front: 'What principle was established in Tuffuor v. Attorney-General [1980] GLR 637?',
+        back: 'The Constitution is a living organic document whose words must be construed broadly; also, Parliament cannot alter the Constitution except via prescribed procedure.',
+        hint: 'Organic living document doctrine.',
+        mastery: 'mastered',
+      },
+      {
+        id: 'c-ul-2',
+        front: 'Under Article 2(1) of the 1992 Constitution of Ghana, who has standing to sue in the Supreme Court?',
+        back: 'Any citizen of Ghana alleging that an enactment or act/omission is inconsistent with a provision of the Constitution—no personal injury required.',
+        hint: 'Public interest constitutional standing.',
+        mastery: 'learning',
+      },
+      {
+        id: 'c-ul-3',
+        front: 'What did the Supreme Court hold in NPP v. Attorney-General (31st December Case) [1993-94]?',
+        back: 'Celebrating 31st December as a public holiday using public funds violated the democratic spirit and directive principles of the 1992 Constitution.',
+        hint: 'Public funding for coup commemoration.',
+        mastery: 'new',
+      },
+    ],
+  },
+];
+
+export const INITIAL_STUDY_LOGS: StudySessionLog[] = [
+  { id: 'log-1', date: '2026-11-17', subject: 'Integrated Science', level: 'JHS', minutes: 45, cardsReviewed: 18, activityType: 'flashcards' },
+  { id: 'log-2', date: '2026-11-18', subject: 'Core Mathematics', level: 'JHS', minutes: 60, cardsReviewed: 22, quizScore: 85, activityType: 'quiz' },
+  { id: 'log-3', date: '2026-11-19', subject: 'Biology', level: 'SHS', minutes: 75, cardsReviewed: 30, activityType: 'group' },
+  { id: 'log-4', date: '2026-11-20', subject: 'Economics', level: 'SHS', minutes: 50, cardsReviewed: 16, quizScore: 78, activityType: 'quiz' },
+  { id: 'log-5', date: '2026-11-21', subject: 'Data Structures & Algorithms', level: 'University', minutes: 90, cardsReviewed: 34, activityType: 'focus' },
+  { id: 'log-6', date: '2026-11-22', subject: 'Constitutional Law', level: 'University', minutes: 65, cardsReviewed: 20, quizScore: 92, activityType: 'flashcards' },
+  { id: 'log-7', date: '2026-11-23', subject: 'Biology', level: 'SHS', minutes: 40, cardsReviewed: 15, activityType: 'flashcards' },
+];
+
+export const INITIAL_EXAM_GOALS: ExamGoal[] = [
+  {
+    id: 'goal-1',
+    title: 'BECE Mock Examination Series II',
+    level: 'JHS',
+    subject: 'Integrated Science',
+    examDate: '2026-12-14',
+    targetHours: 16,
+    completedHours: 11.5,
+    tasks: [
+      { id: 't-1', title: 'Master separation techniques flashcards', completed: true },
+      { id: 't-2', title: 'Complete 2024 BECE Section B theory drill', completed: false },
+      { id: 't-3', title: 'Review simple machines MA & VR formulas', completed: false },
+    ],
+  },
+  {
+    id: 'goal-2',
+    title: 'WASSCE Trial Assessment',
+    level: 'SHS',
+    subject: 'Biology',
+    examDate: '2026-12-18',
+    targetHours: 24,
+    completedHours: 15.5,
+    tasks: [
+      { id: 't-4', title: 'Score 90% on Cell Division Quiz', completed: true },
+      { id: 't-5', title: 'Draw & label transverse dicot root diagram', completed: true },
+      { id: 't-6', title: 'Practice dihybrid genetics Punnett squares', completed: false },
+    ],
+  },
+  {
+    id: 'goal-3',
+    title: 'CS204 End-of-Semester Finals',
+    level: 'University',
+    subject: 'Data Structures & Algorithms',
+    examDate: '2026-12-09',
+    targetHours: 30,
+    completedHours: 21,
+    tasks: [
+      { id: 't-7', title: 'Prove AVL rotation height invariant', completed: true },
+      { id: 't-8', title: 'Trace Bellman-Ford negative cycle detection', completed: false },
+      { id: 't-9', title: 'Solve 5 Master Theorem recurrences', completed: false },
+    ],
+  },
+];
+
+export const INITIAL_QUICK_NOTES: QuickNote[] = [
+  {
+    id: 'note-1',
+    title: 'Mechanical Advantage, Velocity Ratio & Efficiency',
+    level: 'JHS',
+    subject: 'Integrated Science',
+    formulaOrKeyPoint: 'Efficiency (%) = (MA / VR) × 100%',
+    content: 'In any real machine, friction ensures Efficiency is always less than 100%, so MA is always less than VR.',
+    updatedAt: '2026-11-22',
+  },
+  {
+    id: 'note-2',
+    title: 'Price Elasticity Midpoint Formula',
+    level: 'SHS',
+    subject: 'Economics',
+    formulaOrKeyPoint: 'PED = [(Q2 − Q1) / ((Q2 + Q1)/2)] ÷ [(P2 − P1) / ((P2 + P1)/2)]',
+    content: 'Use the arc/midpoint method when moving between two distinct points on a demand curve so elasticity is symmetric.',
+    updatedAt: '2026-11-21',
+  },
+  {
+    id: 'note-3',
+    title: 'Master Theorem Quick Reference',
+    level: 'University',
+    subject: 'Data Structures & Algorithms',
+    formulaOrKeyPoint: 'T(n) = aT(n/b) + f(n) · Compare f(n) vs n^(log_b a)',
+    content: 'Case 1: f(n) smaller → Θ(n^(log_b a)). Case 2: equal → Θ(n^(log_b a) log n). Case 3: f(n) larger → Θ(f(n)).',
+    updatedAt: '2026-11-23',
+  },
+];

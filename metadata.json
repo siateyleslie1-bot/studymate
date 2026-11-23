@@ -1,0 +1,6 @@
+{
+  "name": "StudyMate",
+  "description": "Collaborative study groups, shared flashcards, personalized progress tracking, and flexible Ghana Cedi study plans for JHS, SHS, and University students.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
